@@ -16,7 +16,7 @@ class Queue{
     }
     void enqueue(int x);
     void dequeue();
-    void display();
+    void display(int front);
     // ~Queue() { delete[] q; } // Destructor to free allocated memory
     int getFront() { return front; }
     int getRear() { return rear; }
@@ -48,13 +48,32 @@ void Queue:: dequeue()
     }
 }
 
-void Queue:: display()
+void Queue:: display(int front)
 {
-    for(int i=0 ;i<size;i++)
+    // for(int i=((front+1)+1)%size ;i<=rear;i++)
+    // {
+    //     cout<<"  "<<q[i];
+    // }
+
+    if((front+1)%size!=rear+1)
     {
-        cout<<"  "<<q[i];
+        cout<<" "<<q[(front+1)%size];
+        display((front + 1) % size);
     }
 }
+
+// void Queue::display(int front)
+// {
+//     // Base case: if queue is empty or we've reached the end
+//     if (front == rear)
+//         return;
+    
+//     // Print current element
+//     cout << " " << q[(front + 1) % size];
+    
+//     // Recursive call for next element
+//     display((front + 1) % size);
+// }
 
 
 
@@ -74,7 +93,7 @@ int main(){
     q.enqueue(60);
     q.enqueue(70);
     
-    q.display();
+    q.display(q.getFront());
 
     cout<<endl<<"Front: "<<q.getFront()<<endl;
     cout<<"Rear: "<<q.getRear()<<endl;
